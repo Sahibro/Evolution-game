@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution Clicker | Viral Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: radial-gradient(circle, #1a202c, #000000); color: white; font-family: 'Inter', sans-serif; }
+        .click-effect { transition: transform 0.1s; }
+        .click-effect:active { transform: scale(0.95); }
+        #progress-bar { transition: width 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+
+    <!-- Header & Score -->
+    <div class="text-center mb-10">
+        <h1 class="text-5xl font-extrabold text-yellow-400 mb-2 drop-shadow-lg">EVOLUTION</h1>
+        <p class="text-xl text-gray-400">Total Energy: <span id="energy" class="text-white font-bold">0</span> ⚡</p>
+    </div>
+
+    <!-- Main Evolution Image/Circle -->
+    <div id="main-clicker" onclick="earnEnergy()" class="click-effect cursor-pointer w-64 h-64 bg-yellow-500 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(234,179,8,0.5)] border-8 border-yellow-200">
+        <span id="avatar" class="text-8xl">⚛️</span>
+    </div>
+
+    <!-- Progress & Status -->
+    <div class="mt-12 w-full max-w-md">
+        <div class="flex justify-between mb-2">
+            <span id="current-stage" class="font-semibold text-yellow-400">Stage: Atom</span>
+            <span id="next-stage" class="text-gray-500">Next: Cell</span>
+        </div>
+        <div class="w-full bg-gray-700 rounded-full h-4">
+            <div id="progress-bar" class="bg-yellow-400 h-4 rounded-full" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Share & Social (Viral Hook) -->
+    <button onclick="shareGame()" class="mt-10 bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg">
+        Invite Friends & Compare 🏆
+    </button>
+
+    <script>
+        let energy = 0;
+        let stageIndex = 0;
+        const stages = [
+            { name: "Atom", emoji: "⚛️", goal: 50 },
+            { name: "Cell", emoji: "🦠", goal: 200 },
+            { name: "Fish", emoji: "🐟", goal: 500 },
+            { name: "Monkey", emoji: "🐒", goal: 1200 },
+            { name: "Human", emoji: "🚶", goal: 3000 },
+            { name: "Cyborg", emoji: "🤖", goal: 7000 },
+            { name: "Galactic Being", emoji: "🌌", goal: 15000 }
+        ];
+
+        function earnEnergy() {
+            energy += 5; // Click power
+            updateUI();
+            checkEvolution();
+        }
+
+        function updateUI() {
+            document.getElementById('energy').innerText = energy;
+            let currentGoal = stages[stageIndex].goal;
+            let progress = (energy / currentGoal) * 100;
+            document.getElementById('progress-bar').style.width = Math.min(progress, 100) + "%";
+        }
+
+        function checkEvolution() {
+            if (stageIndex < stages.length - 1 && energy >= stages[stageIndex].goal) {
+                stageIndex++;
+                document.getElementById('avatar').innerText = stages[stageIndex].emoji;
+                document.getElementById('current-stage').innerText = "Stage: " + stages[stageIndex].name;
+                document.getElementById('next-stage').innerText = stages[stageIndex + 1] ? "Next: " + stages[stageIndex+1].name : "Max Evolved!";
+                alert("Boom! You evolved into a " + stages[stageIndex].name + "!");
+            }
+        }
+
+        function shareGame() {
+            const text = `I'm a ${stages[stageIndex].name} in Evolution 2026! Can you beat me? Play here: ${window.location.href}`;
+            window.open(`https://wa.me{encodeURIComponent(text)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
