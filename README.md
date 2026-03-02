@@ -5,12 +5,12 @@
 ## ✨ Key Features
 - ⚡ **Super Addictive Gameplay:** Simple tap-to-evolve mechanics.
 - 📱 **Mobile Optimized:** Works flawlessly on all devices, especially optimized for **Redmi & Android** users.
-- 🌐 **Zero Install:** Play directly in your browser via [GitHub Pages]([https://pages.github.com](https://sahibro.github.io/Evolution-game/)).
+- 🌐 **Zero Install:** Play directly in your browser via [GitHub Pages]([https://pages.github.com])).
 - 🧬 **Multiple Evolution Stages:** Atom, Cell, Fish, Monkey, Human, Cyborg, and beyond!
 - 📤 **Viral Social Sharing:** Built-in WhatsApp sharing to challenge your friends.
 
 ## 🕹️ How to Play
-1. Open the [Game Link](YOUR_GITHUB_PAGES_URL_HERE).
+1. Open the [Game Link](https://sahibro.github.io/Evolution-game/).
 2. Tap the **Central Core** to generate Energy.
 3. Watch your progress bar and **EVOLVE**!
 4. Can you reach the **Galactic Being** stage in under 2 minutes?
