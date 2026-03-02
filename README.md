@@ -5,7 +5,7 @@
 ## ✨ Key Features
 - ⚡ **Super Addictive Gameplay:** Simple tap-to-evolve mechanics.
 - 📱 **Mobile Optimized:** Works flawlessly on all devices, especially optimized for **Redmi & Android** users.
-- 🌐 **Zero Install:** Play directly in your browser via [GitHub Pages]([https://pages.github.com])).
+- 🌐 **Zero Install:** Play directly in your browser via [ https://sahibro.github.io/Evolution-game/ ]([    ])).
 - 🧬 **Multiple Evolution Stages:** Atom, Cell, Fish, Monkey, Human, Cyborg, and beyond!
 - 📤 **Viral Social Sharing:** Built-in WhatsApp sharing to challenge your friends.
 
@@ -18,7 +18,7 @@
 ## 🛠️ Tech Stack
 - **Frontend:** HTML5, Tailwind CSS (for pro UI).
 - **Logic:** Vanilla JavaScript (Pure performance).
-- **Hosting:** [GitHub Pages](https://pages.github.com) (100% Free).
+- **Hosting:** [GitHub Pages](https://sahibro.github.io/Evolution-game/) (100% Free).
 
 ## 🤝 Contributing
 This is an **Open Source** project! Feel free to fork, add new evolution stages, or improve the UI. Let's make this the #1 viral game on GitHub!
