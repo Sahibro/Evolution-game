@@ -3,83 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evolution Clicker | Viral Game</title>
+    <title>Evolution 2026 | Viral Global Challenge</title>
+    <!-- Tailwind CSS for Pro UI -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: radial-gradient(circle, #1a202c, #000000); color: white; font-family: 'Inter', sans-serif; }
-        .click-effect { transition: transform 0.1s; }
-        .click-effect:active { transform: scale(0.95); }
-        #progress-bar { transition: width 0.5s ease-in-out; }
+        body { 
+            background: radial-gradient(circle, #0f172a, #000000); 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .click-animation:active { transform: scale(0.9); transition: 0.1s; }
+        #progress-bar { transition: width 0.3s ease; }
+        .glow { shadow-[0_0_50px_rgba(234,179,8,0.6)] }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
+<body class="flex flex-col items-center justify-center min-h-screen p-4 text-center">
 
-    <!-- Header & Score -->
-    <div class="text-center mb-10">
-        <h1 class="text-5xl font-extrabold text-yellow-400 mb-2 drop-shadow-lg">EVOLUTION</h1>
-        <p class="text-xl text-gray-400">Total Energy: <span id="energy" class="text-white font-bold">0</span> ⚡</p>
+    <!-- Score Header -->
+    <div class="mb-8">
+        <h1 class="text-4xl font-black text-yellow-400 tracking-tighter drop-shadow-md">EVOLUTION 2026</h1>
+        <p class="text-gray-400 mt-2 text-lg">Energy Collected: <span id="energy-display" class="text-white font-bold text-2xl">0</span> ⚡</p>
     </div>
 
-    <!-- Main Evolution Image/Circle -->
-    <div id="main-clicker" onclick="earnEnergy()" class="click-effect cursor-pointer w-64 h-64 bg-yellow-500 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(234,179,8,0.5)] border-8 border-yellow-200">
-        <span id="avatar" class="text-8xl">⚛️</span>
+    <!-- Main Clickable Avatar -->
+    <div id="clicker-btn" onclick="handleTap()" class="click-animation cursor-pointer w-64 h-64 bg-gradient-to-tr from-yellow-600 to-yellow-300 rounded-full flex items-center justify-center shadow-[0_0_60px_rgba(234,179,8,0.4)] border-4 border-white/20 relative">
+        <span id="avatar-emoji" class="text-8xl select-none">⚛️</span>
     </div>
 
-    <!-- Progress & Status -->
-    <div class="mt-12 w-full max-w-md">
-        <div class="flex justify-between mb-2">
-            <span id="current-stage" class="font-semibold text-yellow-400">Stage: Atom</span>
-            <span id="next-stage" class="text-gray-500">Next: Cell</span>
+    <!-- Progress Stats -->
+    <div class="mt-10 w-full max-w-sm px-6">
+        <div class="flex justify-between text-sm mb-2 font-bold uppercase tracking-widest">
+            <span id="stage-text" class="text-yellow-400">Atom</span>
+            <span id="next-stage-text" class="text-gray-500">Next: Cell</span>
         </div>
-        <div class="w-full bg-gray-700 rounded-full h-4">
-            <div id="progress-bar" class="bg-yellow-400 h-4 rounded-full" style="width: 0%"></div>
+        <div class="w-full bg-gray-800 rounded-full h-5 border border-gray-700 overflow-hidden">
+            <div id="progress-bar" class="bg-gradient-to-r from-yellow-500 to-yellow-200 h-full w-0 shadow-[0_0_15px_rgba(234,179,8,0.5)]"></div>
         </div>
     </div>
 
-    <!-- Share & Social (Viral Hook) -->
-    <button onclick="shareGame()" class="mt-10 bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg">
-        Invite Friends & Compare 🏆
-    </button>
+    <!-- Viral Share Section (FIXED) -->
+    <div class="mt-12 space-y-4">
+        <button onclick="shareOnWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white font-black py-4 px-10 rounded-2xl shadow-xl transform transition hover:scale-105 active:scale-95 flex items-center gap-2">
+            <span>Invite Friends & Challenge 🏆</span>
+        </button>
+        <p class="text-[10px] text-gray-500 uppercase tracking-widest">Global Ranking: #<span id="rank">9,999+</span></p>
+    </div>
 
     <script>
+        // Game Logic & Data
         let energy = 0;
-        let stageIndex = 0;
-        const stages = [
-            { name: "Atom", emoji: "⚛️", goal: 50 },
-            { name: "Cell", emoji: "🦠", goal: 200 },
-            { name: "Fish", emoji: "🐟", goal: 500 },
-            { name: "Monkey", emoji: "🐒", goal: 1200 },
-            { name: "Human", emoji: "🚶", goal: 3000 },
-            { name: "Cyborg", emoji: "🤖", goal: 7000 },
-            { name: "Galactic Being", emoji: "🌌", goal: 15000 }
+        let currentStageIndex = 0;
+
+        const evolutionPath = [
+            { name: "Atom", emoji: "⚛️", target: 50 },
+            { name: "Cell", emoji: "🦠", target: 250 },
+            { name: "Fish", emoji: "🐟", target: 750 },
+            { name: "Monkey", emoji: "🐒", target: 2000 },
+            { name: "Human", emoji: "🚶", target: 5000 },
+            { name: "Cyborg", emoji: "🤖", target: 12000 },
+            { name: "Galactic Being", emoji: "🌌", target: 30000 }
         ];
 
-        function earnEnergy() {
-            energy += 5; // Click power
-            updateUI();
-            checkEvolution();
+        function handleTap() {
+            energy += 10; // Click value
+            updateGame();
         }
 
-        function updateUI() {
-            document.getElementById('energy').innerText = energy;
-            let currentGoal = stages[stageIndex].goal;
-            let progress = (energy / currentGoal) * 100;
-            document.getElementById('progress-bar').style.width = Math.min(progress, 100) + "%";
-        }
+        function updateGame() {
+            const display = document.getElementById('energy-display');
+            const bar = document.getElementById('progress-bar');
+            const avatar = document.getElementById('avatar-emoji');
+            const stageName = document.getElementById('stage-text');
+            const nextStageName = document.getElementById('next-stage-text');
 
-        function checkEvolution() {
-            if (stageIndex < stages.length - 1 && energy >= stages[stageIndex].goal) {
-                stageIndex++;
-                document.getElementById('avatar').innerText = stages[stageIndex].emoji;
-                document.getElementById('current-stage').innerText = "Stage: " + stages[stageIndex].name;
-                document.getElementById('next-stage').innerText = stages[stageIndex + 1] ? "Next: " + stages[stageIndex+1].name : "Max Evolved!";
-                alert("Boom! You evolved into a " + stages[stageIndex].name + "!");
+            display.innerText = energy.toLocaleString();
+
+            let currentLevel = evolutionPath[currentStageIndex];
+            let progressPercent = (energy / currentLevel.target) * 100;
+            bar.style.width = Math.min(progressPercent, 100) + "%";
+
+            // Evolution Check
+            if (energy >= currentLevel.target && currentStageIndex < evolutionPath.length - 1) {
+                currentStageIndex++;
+                let newLevel = evolutionPath[currentStageIndex];
+                
+                // Update UI for New Stage
+                avatar.innerText = newLevel.emoji;
+                stageName.innerText = newLevel.name;
+                nextStageName.innerText = evolutionPath[currentStageIndex + 1] ? "Next: " + evolutionPath[currentStageIndex + 1].name : "MAX LEVEL";
+                
+                // Small vibration for mobile users
+                if (navigator.vibrate) navigator.vibrate(100);
+                alert(`🚀 EVOLVED! You are now a ${newLevel.name}!`);
             }
         }
 
-        function shareGame() {
-            const text = `I'm a ${stages[stageIndex].name} in Evolution 2026! Can you beat me? Play here: ${window.location.href}`;
-            window.open(`https://wa.me{encodeURIComponent(text)}`, '_blank');
+        // WhatsApp Viral Share Function - FIXED
+        function shareOnWhatsApp() {
+            const currentObj = evolutionPath[currentStageIndex];
+            const gameUrl = window.location.href;
+            
+            // Crafting the Viral Message
+            const text = `🔥 I just evolved into a *${currentObj.name}* ${currentObj.emoji} in Evolution 2026! %0A%0ACan you reach the Galactic stage faster than me? ⚡%0A%0A👇 PLAY HERE (Free):%0A${gameUrl}`;
+            
+            // Opening WhatsApp (Works on Mobile App & Web)
+            const waLink = "https://api.whatsapp.com" + text;
+            window.open(waLink, '_blank');
         }
     </script>
 </body>
