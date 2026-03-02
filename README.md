@@ -5,7 +5,7 @@
 ## ✨ Key Features
 - ⚡ **Super Addictive Gameplay:** Simple tap-to-evolve mechanics.
 - 📱 **Mobile Optimized:** Works flawlessly on all devices, especially optimized for **Redmi & Android** users.
-- 🌐 **Zero Install:** Play directly in your browser via [GitHub Pages](https://pages.github.com).
+- 🌐 **Zero Install:** Play directly in your browser via [GitHub Pages]([https://pages.github.com](https://sahibro.github.io/Evolution-game/)).
 - 🧬 **Multiple Evolution Stages:** Atom, Cell, Fish, Monkey, Human, Cyborg, and beyond!
 - 📤 **Viral Social Sharing:** Built-in WhatsApp sharing to challenge your friends.
 
